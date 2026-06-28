@@ -173,20 +173,10 @@
   .info-row .k{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
   .info-row .v{color:var(--cream);font-size:1rem}
   .info-row .v small{color:var(--muted);display:block;font-size:.86rem}
-  form{display:grid;gap:16px}
-  form .field{display:flex;flex-direction:column;gap:7px}
-  form label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-  form input,form select,form textarea{
-    background:var(--black);border:1px solid var(--line);color:var(--cream);
-    padding:12px 14px;font-family:var(--sans);font-size:.95rem;border-radius:1px;transition:border .3s}
-  form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--gold)}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  form button{margin-top:6px;width:100%}
-  .form-note{font-size:.78rem;color:var(--muted);text-align:center}
 
   /* map */
-  .map-wrap{margin-top:0;height:420px;border:1px solid var(--line);border-top:0;filter:grayscale(.4) contrast(1.05) brightness(.85)}
-  .map-wrap iframe{width:100%;height:100%;border:0}
+  .map-col{position:relative;border-left:1px solid var(--line);min-height:380px;filter:grayscale(.4) contrast(1.05) brightness(.85)}
+  .map-col iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
   /* footer */
   footer{background:var(--ink);border-top:1px solid var(--line);padding:64px 0 36px}
@@ -218,6 +208,7 @@
     .reviews{grid-template-columns:1fr}
     .info{grid-template-columns:1fr}
     .info-col+.info-col{border-left:0;border-top:1px solid var(--line)}
+    .map-col{border-left:0;border-top:1px solid var(--line);min-height:300px}
     .strip .wrap{grid-template-columns:1fr 1fr;gap:34px 20px}
     .gallery{grid-template-columns:repeat(2,1fr)}
     .tile.g-wide{grid-column:1 / -1;aspect-ratio:16/9}
@@ -226,7 +217,6 @@
     .info-col{padding:40px 28px}
   }
   @media(max-width:480px){
-    .row2{grid-template-columns:1fr}
     .pad{padding:80px 0}
     .hero-cta{flex-direction:column;align-items:center}
     .hero-cta .btn{width:100%;max-width:280px}
@@ -257,7 +247,7 @@
       <a href="#galerie">Galerie</a>
       <a href="#avis">Avis</a>
       <a href="#infos">Infos & accès</a>
-      <a href="#reserver" class="btn">Réserver</a>
+      <a href="tel:+33492614253" class="btn">Appeler pour réserver</a>
     </nav>
     <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -273,7 +263,7 @@
     <p class="tag">Viandes maturées &amp; cuisine faite maison</p>
     <p class="loc">Barcelonnette · Vallée de l'Ubaye</p>
     <div class="hero-cta">
-      <a href="#reserver" class="btn btn-solid">Réserver une table</a>
+      <a href="tel:+33492614253" class="btn btn-solid">Appeler pour réserver</a>
       <a href="#carte" class="btn">Découvrir la carte</a>
     </div>
   </div>
@@ -443,53 +433,16 @@
           <div><div class="k">Bon à savoir</div><div class="v">Terrasse · Groupes bienvenus<small>Réservation conseillée en saison</small></div></div>
         </div>
         <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-solid" href="tel:+33492614253">Appeler le restaurant</a>
+          <a class="btn btn-solid" href="tel:+33492614253">Appeler pour réserver</a>
           <a class="btn" href="https://maps.google.com/maps?q=4+Rue+Manuel+04400+Barcelonnette" target="_blank" rel="noopener">Itinéraire</a>
         </div>
       </div>
 
-      <!-- COL RIGHT : reservation -->
-      <div class="info-col reveal" id="reserver">
-        <h3 style="font-size:1.6rem;color:var(--gold-bright);margin-bottom:6px">Réserver une table</h3>
-        <p style="color:var(--muted);font-size:.9rem;margin-bottom:24px">Remplissez le formulaire, nous vous confirmons rapidement. Pour une demande de dernière minute, appelez-nous directement.</p>
-        <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('formOk').style.display='block';">
-          <div class="row2">
-            <div class="field"><label>Nom</label><input type="text" required placeholder="Votre nom" /></div>
-            <div class="field"><label>Téléphone</label><input type="tel" required placeholder="06 ..." /></div>
-          </div>
-          <div class="row2">
-            <div class="field"><label>Date</label><input type="date" required /></div>
-            <div class="field"><label>Heure</label>
-              <select required>
-                <option value="">Choisir…</option>
-                <option>12h00</option><option>12h30</option><option>13h00</option>
-                <option>19h00</option><option>19h30</option><option>20h00</option><option>20h30</option><option>21h00</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label>Nombre de convives</label>
-            <select required>
-              <option value="">Choisir…</option>
-              <option>1 personne</option><option>2 personnes</option><option>3 personnes</option>
-              <option>4 personnes</option><option>5 personnes</option><option>6 personnes</option><option>7+ (groupe)</option>
-            </select>
-          </div>
-          <div class="field"><label>Message (optionnel)</label><textarea rows="2" placeholder="Allergies, occasion spéciale…"></textarea></div>
-          <button type="submit" class="btn btn-solid">Envoyer ma demande</button>
-          <p class="form-note">Formulaire de démonstration — à connecter à votre email ou outil de réservation.</p>
-        </form>
-        <div id="formOk" style="display:none;text-align:center;padding:30px 0">
-          <div style="color:var(--gold);font-size:2.6rem">✓</div>
-          <p style="font-family:var(--serif);font-size:1.4rem;color:var(--cream);margin:10px 0">Merci !</p>
-          <p style="color:var(--muted)">Votre demande a bien été prise en compte (démo). Nous vous recontacterons pour confirmer.</p>
-        </div>
+      <!-- COL RIGHT : map -->
+      <div class="map-col reveal">
+        <iframe loading="lazy" title="Plan d'accès Comme à la Maison Barcelonnette"
+          src="https://maps.google.com/maps?q=4%20Rue%20Manuel%2004400%20Barcelonnette&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
       </div>
-    </div>
-
-    <!-- MAP -->
-    <div class="map-wrap reveal">
-      <iframe loading="lazy" title="Plan d'accès Comme à la Maison Barcelonnette"
-        src="https://maps.google.com/maps?q=4%20Rue%20Manuel%2004400%20Barcelonnette&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
     </div>
   </div>
 </section>
@@ -520,7 +473,7 @@
         <h4>Nous trouver</h4>
         <p>4 Rue Manuel<br>04400 Barcelonnette</p>
         <a href="tel:+33492614253">04 92 61 42 53</a>
-        <a href="#reserver">Réserver une table</a>
+        <a href="tel:+33492614253">Appeler pour réserver</a>
       </div>
     </div>
     <div class="foot-bottom">
